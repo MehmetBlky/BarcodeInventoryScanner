@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UrundbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_cikis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Siparis_No" Type="varchar" MaxLength="50" />
+          <Property Name="Kalem_Sayisi" Type="varchar" MaxLength="50" />
+          <Property Name="Toplam_Fiyat" Type="varchar" MaxLength="50" />
+          <Property Name="Siparis_Durumu" Type="varchar" MaxLength="50" />
+          <Property Name="Kargoya_sonVerme" Type="varchar" MaxLength="50" />
+          <Property Name="Kargo_FirmaAdı" Type="varchar" MaxLength="50" />
+          <Property Name="Musteri_Ad" Type="varchar" MaxLength="50" />
+          <Property Name="Teslimat_Adres" Type="varchar" MaxLength="50" />
+          <Property Name="Barkod" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Urunler">
+          <Key>
+            <PropertyRef Name="Urun_Barkod" />
+          </Key>
+          <Property Name="Urun_Barkod" Type="int" Nullable="false" />
+          <Property Name="Urun_Foto" Type="text" />
+          <Property Name="Urun_Ad" Type="varchar" MaxLength="50" />
+          <Property Name="Urun_Fiyat" Type="int" />
+        </EntityType>
+        <Association Name="FK_Tbl_cikis_Tbl_Urunler">
+          <End Role="Tbl_Urunler" Type="Self.Tbl_Urunler" Multiplicity="0..1" />
+          <End Role="Tbl_cikis" Type="Self.Tbl_cikis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Urunler">
+              <PropertyRef Name="Urun_Barkod" />
+            </Principal>
+            <Dependent Role="Tbl_cikis">
+              <PropertyRef Name="Barkod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UrundbModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_cikis" EntityType="Self.Tbl_cikis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Urunler" EntityType="Self.Tbl_Urunler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_cikis_Tbl_Urunler" Association="Self.FK_Tbl_cikis_Tbl_Urunler">
+            <End Role="Tbl_Urunler" EntitySet="Tbl_Urunler" />
+            <End Role="Tbl_cikis" EntitySet="Tbl_cikis" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UrundbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tbl_cikis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Siparis_No" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Kalem_Sayisi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Toplam_Fiyat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Siparis_Durumu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Kargoya_sonVerme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Kargo_FirmaAdı" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Musteri_Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Teslimat_Adres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Barkod" Type="Int32" />
+          <NavigationProperty Name="Tbl_Urunler" Relationship="Self.FK_Tbl_cikis_Tbl_Urunler" FromRole="Tbl_cikis" ToRole="Tbl_Urunler" />
+        </EntityType>
+        <EntityType Name="Tbl_Urunler">
+          <Key>
+            <PropertyRef Name="Urun_Barkod" />
+          </Key>
+          <Property Name="Urun_Barkod" Type="Int32" Nullable="false" />
+          <Property Name="Urun_Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Urun_Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Urun_Fiyat" Type="Int32" />
+          <NavigationProperty Name="Tbl_cikis" Relationship="Self.FK_Tbl_cikis_Tbl_Urunler" FromRole="Tbl_Urunler" ToRole="Tbl_cikis" />
+        </EntityType>
+        <Association Name="FK_Tbl_cikis_Tbl_Urunler">
+          <End Role="Tbl_Urunler" Type="Self.Tbl_Urunler" Multiplicity="0..1" />
+          <End Role="Tbl_cikis" Type="Self.Tbl_cikis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Urunler">
+              <PropertyRef Name="Urun_Barkod" />
+            </Principal>
+            <Dependent Role="Tbl_cikis">
+              <PropertyRef Name="Barkod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UrundbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tbl_cikis" EntityType="Self.Tbl_cikis" />
+          <EntitySet Name="Tbl_Urunler" EntityType="Self.Tbl_Urunler" />
+          <AssociationSet Name="FK_Tbl_cikis_Tbl_Urunler" Association="Self.FK_Tbl_cikis_Tbl_Urunler">
+            <End Role="Tbl_Urunler" EntitySet="Tbl_Urunler" />
+            <End Role="Tbl_cikis" EntitySet="Tbl_cikis" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UrundbModelStoreContainer" CdmEntityContainer="UrundbEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UrundbModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_cikis">
+            <EntityTypeMapping TypeName="UrundbModel.Tbl_cikis">
+              <MappingFragment StoreEntitySet="Tbl_cikis">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Siparis_No" ColumnName="Siparis_No" />
+                <ScalarProperty Name="Kalem_Sayisi" ColumnName="Kalem_Sayisi" />
+                <ScalarProperty Name="Toplam_Fiyat" ColumnName="Toplam_Fiyat" />
+                <ScalarProperty Name="Siparis_Durumu" ColumnName="Siparis_Durumu" />
+                <ScalarProperty Name="Kargoya_sonVerme" ColumnName="Kargoya_sonVerme" />
+                <ScalarProperty Name="Kargo_FirmaAdı" ColumnName="Kargo_FirmaAdı" />
+                <ScalarProperty Name="Musteri_Ad" ColumnName="Musteri_Ad" />
+                <ScalarProperty Name="Teslimat_Adres" ColumnName="Teslimat_Adres" />
+                <ScalarProperty Name="Barkod" ColumnName="Barkod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Urunler">
+            <EntityTypeMapping TypeName="UrundbModel.Tbl_Urunler">
+              <MappingFragment StoreEntitySet="Tbl_Urunler">
+                <ScalarProperty Name="Urun_Barkod" ColumnName="Urun_Barkod" />
+                <ScalarProperty Name="Urun_Foto" ColumnName="Urun_Foto" />
+                <ScalarProperty Name="Urun_Ad" ColumnName="Urun_Ad" />
+                <ScalarProperty Name="Urun_Fiyat" ColumnName="Urun_Fiyat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
